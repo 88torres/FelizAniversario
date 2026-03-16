@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz aniversário, Nayara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050308;
+      --card:#0c0914;
+      --card-2:#120d1d;
+      --border:rgba(130,92,255,0.24);
+      --purple:#8f5cff;
+      --purple-2:#b79aff;
+      --white:#ffffff;
+      --muted:#ddd6ff;
+      --shadow:0 20px 60px rgba(0,0,0,0.55);
+      --radius:28px;
+      --max:1100px;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(143,92,255,0.14), transparent 22%),
+        radial-gradient(circle at bottom, rgba(143,92,255,0.08), transparent 18%),
+        linear-gradient(180deg,#030206,#06040a 40%,#090611 100%);
+      color:var(--white);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .stars,.petals,.final-sparkles,.cinema-overlay,.ending-quote-wrap{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+    }
+    .stars{z-index:0;overflow:hidden}
+    .petals{z-index:1;overflow:hidden}
+    .final-sparkles{z-index:7;overflow:hidden;display:none}
+
+    .star,.sparkle-dot{
+      position:absolute;
+      width:2px;
+      height:2px;
+      border-radius:50%;
+      background:#fff;
+      box-shadow:0 0 10px rgba(255,255,255,0.7);
+      animation:twinkle ease-in-out infinite;
+    }
+
+    .petal{
+      position:absolute;
+      top:-30px;
+      width:10px;
+      height:14px;
+      border-radius:14px 14px 2px 14px;
+      background:linear-gradient(135deg, rgba(173,142,255,0.65), rgba(255,255,255,0.9));
+      opacity:.55;
+      animation:fall linear forwards;
+      transform-origin:center;
+      filter:drop-shadow(0 0 12px rgba(143,92,255,0.18));
+    }
+
+    .page{position:relative;z-index:2}
+    .wrap{width:min(var(--max),92%);margin:0 auto}
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px 0 50px;
+    }
+
+    .card{
+      background:linear-gradient(180deg,var(--card),var(--card-2));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:radial-gradient(circle at top, rgba(143,92,255,0.14), transparent 30%);
+    }
+
+    .hero-card{text-align:center;padding:46px 28px 36px}
+
+    .eyebrow{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(143,92,255,0.30);
+      background:rgba(143,92,255,0.10);
+      color:var(--white);
+      font-size:.82rem;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .name{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(4rem,10vw,7rem);
+      line-height:.95;
+      color:var(--purple);
+      letter-spacing:-.05em;
+      margin-bottom:10px;
+      text-shadow:0 0 26px rgba(143,92,255,0.22);
+    }
+
+    .hero-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.4rem,5vw,4.6rem);
+      line-height:.98;
+      letter-spacing:-.05em;
+      color:var(--purple-2);
+      margin:0 auto 18px;
+      max-width:860px;
+    }
+
+    .hero-subtitle{
+      color:var(--white);
+      max-width:760px;
+      margin:0 auto 24px;
+      line-height:1.9;
+      font-size:1.03rem;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:999px;
+      background:rgba(143,92,255,0.14);
+      border:1px solid rgba(143,92,255,0.34);
+      color:var(--white);
+      font-weight:700;
+      margin-bottom:24px;
+    }
+
+    .hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .btn{
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      color:#fff;
+      padding:14px 22px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.98rem;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition:transform .25s ease, box-shadow .25s ease;
+      box-shadow:0 12px 28px rgba(0,0,0,.3);
+    }
+    .btn:hover{transform:translateY(-3px) scale(1.02)}
+    .btn-primary{background:linear-gradient(135deg,#7a49ff,#9d73ff)}
+
+    .section{padding:16px 0 24px}
+    .center-col{width:min(820px,100%);margin:0 auto}
+
+    .section-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,3.1rem);
+      line-height:1;
+      letter-spacing:-.04em;
+      color:var(--purple-2);
+      margin-bottom:14px;
+    }
+
+    .gold-line{
+      width:86px;
+      height:1px;
+      margin:10px 0 18px;
+      background:linear-gradient(90deg,transparent,var(--purple),transparent);
+    }
+
+    .letter-card,.surprise-card,.closing-card{padding:30px 24px}
+
+    .typewriter p,
+    .closing-card p,
+    .surprise-card p{
+      color:var(--white);
+      line-height:2.0;
+      font-size:1.15rem;
+      margin-bottom:18px;
+      font-family:'Cormorant Garamond',serif;
+      letter-spacing:0.02em;
+    }
+
+    .love-reveal-wrap{margin-top:22px;display:flex;justify-content:center}
+
+    .love-reveal-btn{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      cursor:pointer;
+      padding:14px 22px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#7a49ff,#9d73ff);
+      color:white;
+      font-weight:800;
+      font-size:1rem;
+      box-shadow:0 12px 28px rgba(0,0,0,.32);
+      animation:pulseLove 1.4s infinite;
+    }
+    .love-reveal-btn.show{display:inline-flex}
+    .love-heart{font-size:1.1rem;animation:blinkHeart .9s infinite}
+
+    .surprise-card{display:none;text-align:center}
+
+    .heart-photo-wrap{display:flex;justify-content:center;margin-top:12px}
+
+    .heart-reveal-stage{
+      position:relative;
+      width:min(760px,100%);
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+
+    .heart-bloom{
+      position:absolute;
+      width:120px;
+      aspect-ratio:1/1;
+      background:radial-gradient(circle at 30% 30%, #ff8fa4, #ff335c 60%, #d90c3f 100%);
+      transform:rotate(-45deg) scale(.08);
+      opacity:0;
+      filter:drop-shadow(0 20px 40px rgba(255,40,80,.22));
+      transition:transform 1s cubic-bezier(.2,.8,.2,1), opacity .7s ease;
+    }
+    .heart-bloom::before,.heart-bloom::after{
+      content:"";
+      position:absolute;
+      width:100%;height:100%;border-radius:50%;background:inherit;
+    }
+    .heart-bloom::before{top:-50%;left:0}
+    .heart-bloom::after{left:50%;top:0}
+    .heart-bloom.show{opacity:.95;transform:rotate(-45deg) scale(2.4)}
+
+    .dual-heart-frame{
+      position:relative;
+      width:min(720px,100%);
+      min-height:360px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      opacity:0;
+      transform:translateY(18px) scale(.92);
+      transition:opacity .8s ease .45s, transform .8s ease .45s;
+      z-index:2;
+    }
+    .dual-heart-frame.show{opacity:1;transform:translateY(0) scale(1)}
+
+    .dual-photo{
+      width:min(240px,34vw);
+      height:min(300px,46vw);
+      border-radius:28px;
+      overflow:hidden;
+      position:relative;
+      background:#111;
+      box-shadow:0 18px 38px rgba(0,0,0,.3);
+      border:1px solid rgba(143,92,255,0.25);
+    }
+    .dual-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .dual-center-heart{
+      font-size:clamp(3rem,8vw,5rem);
+      color:#ff335c;
+      text-shadow:0 0 25px rgba(255,60,90,.38);
+      animation:pulseCenterHeart 1.8s ease-in-out infinite;
+      transform:translateY(4px);
+    }
+
+    .highlight{font-weight:700;color:var(--white)!important;text-align:center}
+
+    .closing-card{text-align:center;margin-top:18px}
+
+    .closing-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.3rem,5vw,3.8rem);
+      line-height:1;
+      letter-spacing:-.05em;
+      color:var(--purple-2);
+      margin-bottom:16px;
+    }
+
+    .signature{
+      margin-top:18px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.2rem,6vw,3.6rem);
+      line-height:1.1;
+      letter-spacing:-.04em;
+      color:var(--purple);
+      font-weight:700;
+    }
+
+    .cinema-overlay{
+      z-index:8;
+      display:none;
+      overflow:hidden;
+    }
+    .cinema-overlay.show{display:block}
+    .cinema-top,.cinema-bottom{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:0;
+      background:rgba(0,0,0,.92);
+      transition:height .8s ease;
+    }
+    .cinema-top{top:0}
+    .cinema-bottom{bottom:0}
+    .cinema-text{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:0 20px;
+      color:rgba(255,255,255,0);
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,6vw,4rem);
+      letter-spacing:-.04em;
+      transition:color .3s ease;
+    }
+    .cinema-overlay.show .cinema-top,
+    .cinema-overlay.show .cinema-bottom{height:50%}
+    .cinema-overlay.show .cinema-text{color:#ffffff}
+
+    .ending-quote-wrap{
+      z-index:9;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .ending-quote-wrap.show{display:flex}
+    .ending-quote{
+      max-width:760px;
+      text-align:center;
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.1rem,5vw,3.6rem);
+      line-height:1.1;
+      letter-spacing:-.04em;
+      color:#ffffff;
+      text-shadow:0 0 24px rgba(143,92,255,.25);
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .9s ease, transform .9s ease;
+    }
+    .ending-quote-wrap.show .ending-quote{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes twinkle{0%,100%{opacity:.18;transform:scale(1)}50%{opacity:1;transform:scale(1.8)}}
+    @keyframes fall{to{transform:translateY(110vh) rotate(180deg) translateX(24px);opacity:0}}
+    @keyframes pulseLove{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+    @keyframes blinkHeart{0%,100%{opacity:1}50%{opacity:.35}}
+    @keyframes pulseCenterHeart{0%,100%{transform:translateY(4px) scale(1)}50%{transform:translateY(4px) scale(1.08)}}
+
+    @media (max-width:560px){
+      .wrap{width:94%}
+      .hero{padding:18px 0 28px}
+      .hero-card,.letter-card,.surprise-card,.closing-card{padding:20px 14px;border-radius:22px}
+      .eyebrow{font-size:.72rem;letter-spacing:.12em;padding:9px 12px;margin-bottom:14px}
+      .name{font-size:clamp(3.2rem,14vw,4.8rem);margin-bottom:8px}
+      .hero-title{font-size:clamp(2rem,10vw,3rem);line-height:1.02;margin-bottom:14px}
+      .hero-subtitle,.typewriter p,.closing-card p,.surprise-card p{font-size:.98rem;line-height:1.85}
+      .badge{font-size:.85rem;padding:10px 14px;margin-bottom:18px}
+      .btn{width:100%;font-size:.96rem;padding:13px 18px}
+      .section{padding:12px 0 18px}
+      .section-title,.closing-title{font-size:clamp(1.9rem,9vw,2.5rem);line-height:1.02}
+      .love-reveal-wrap{margin-top:18px}
+      .love-reveal-btn{width:100%;font-size:.95rem;padding:13px 16px}
+      .dual-heart-frame{flex-direction:column;gap:12px;min-height:480px}
+      .dual-photo{width:min(250px,72vw);height:min(300px,84vw);border-radius:22px}
+      .dual-center-heart{font-size:3.2rem}
+      .heart-bloom.show{transform:rotate(-45deg) scale(1.8)}
+      .signature{font-size:clamp(2rem,10vw,2.8rem);line-height:1.15}
+      .ending-quote{font-size:clamp(1.8rem,9vw,2.8rem)}
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="petals" id="petals"></div>
+  <div class="final-sparkles" id="finalSparkles"></div>
+  <div class="cinema-overlay" id="cinemaOverlay">
+    <div class="cinema-top"></div>
+    <div class="cinema-bottom"></div>
+    <div class="cinema-text" id="cinemaText">o momento mais bonito ainda está por vir…</div>
+  </div>
+  <div class="ending-quote-wrap" id="endingQuoteWrap">
+    <div class="ending-quote">E no meio de tantos dias no mundo…<br>o meu favorito é aquele em que você existe.</div>
+  </div>
+
+  <div class="page">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-card card">
+          <div class="eyebrow">16 de março de 2026 • 17 anos</div>
+          <div class="name">Nayara</div>
+          <h1 class="hero-title">Hoje não é só um aniversário.<br>É o dia em que o mundo ganhou você.</h1>
+          <p class="hero-subtitle">
+            Eu queria fazer algo que parecesse eterno. Não um site comum, não uma página qualquer, mas um lugar que parecesse feito com cuidado de verdade, como uma carta bonita que você pudesse guardar no coração.
+          </p>
+          <div class="badge">Feliz aniversário, meu amor</div>
+          <div class="hero-actions">
+            <a href="#carta" class="btn btn-primary">Ler sua carta</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="wrap">
+      <section class="section" id="carta">
+        <div class="center-col">
+          <div class="letter-card card">
+            <div class="section-title">Uma carta para o seu dia</div>
+            <div class="gold-line"></div>
+            <div class="typewriter" id="letterText"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="center-col">
+          <div class="surprise-card card" id="surpriseSection">
+            <div class="section-title">Tem mais uma coisinha pra você…</div>
+            <p>Porque só a carta ainda não era o bastante para mostrar o quanto você é importante pra mim.</p>
+            <div class="heart-photo-wrap">
+              <div class="heart-reveal-stage">
+                <div class="heart-bloom" id="heartBloom"></div>
+                <div class="dual-heart-frame" id="dualHeartFrame">
+                  <div class="dual-photo">
+                    <img src="imagens/eu.jpg" alt="Minha foto">
+                  </div>
+                  <div class="dual-center-heart">❤</div>
+                  <div class="dual-photo">
+                    <img src="imagens/nayara1.jpg" alt="Foto da Nayara">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="highlight">
+              Eu amo muito você, Nayara. Amo o seu jeito, amo até os seus ciúmes, amo o seu jeitinho chatinha, amo cada detalhe que faz você ser você. E se hoje é o seu dia, então eu só queria deixar registrado que ter você na minha vida faz tudo ficar mais bonito, mais leve e mais especial.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="center-col">
+          <div class="closing-card card">
+            <div class="closing-title">Que os seus 17 anos sejam tão lindos quanto você.</div>
+            <p>Que hoje você se sinta amada, celebrada, admirada e abraçada por tudo o que existe de bonito ao seu redor. E que, quando você lembrar desse dia, lembre também do cuidado com que ele foi feito para você.</p>
+            <p class="highlight">Feliz aniversário, Nayara. Você merece um dia inesquecível.</p>
+            <div class="signature">Thiago — mais conhecido como seu Homem</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <audio id="heartSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRjQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YRAAAAAA////AAAA////AAAA" type="audio/wav">
+  </audio>
+
+  <script>
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 70; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDuration = (1.6 + Math.random() * 2.6) + 's';
+      star.style.animationDelay = (Math.random() * 2) + 's';
+      stars.appendChild(star);
+    }
+
+    const petals = document.getElementById('petals');
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (8 + Math.random() * 8) + 's';
+      petal.style.opacity = (0.28 + Math.random() * 0.35).toFixed(2);
+      petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+      petals.appendChild(petal);
+      setTimeout(() => petal.remove(), 17000);
+    }
+    setInterval(createPetal, 950);
+
+    const letterLines = [
+      'Nayara,',
+      '',
+      'hoje é o seu dia… e eu fiquei pensando muito em como começar essa carta.',
+      '',
+      'Porque às vezes "feliz aniversário" parece pequeno demais para uma pessoa como você.',
+      '',
+      'Você não é só alguém que está fazendo aniversário hoje.',
+      'Você é alguém que mudou coisas dentro de mim.',
+      '',
+      'Eu amo muitas coisas em você.',
+      'Amo o seu sorriso.',
+      'Amo o seu jeito.',
+      'Amo quando você fala.',
+      'Amo quando você ri.',
+      '',
+      'E eu confesso uma coisa…',
+      'eu amo até quando você fica com ciúmes.',
+      '',
+      'Pode parecer engraçado dizer isso, mas eu amo até o seu jeitinho chatinha às vezes.',
+      'Porque esse jeitinho é parte de quem você é.',
+      '',
+      'E são justamente essas pequenas coisas que fazem você ser tão única.',
+      '',
+      'Eu amo quando você se importa.',
+      'Amo quando você demonstra.',
+      'Amo quando você mostra o que sente.',
+      '',
+      'Porque no fundo tudo isso mostra o tamanho do seu coração.',
+      '',
+      'E hoje, no seu aniversário…',
+      'eu só queria que você lembrasse de uma coisa muito simples:',
+      '',
+      'Você é uma das pessoas mais especiais que já apareceu na minha vida.',
+      '',
+      'Seu jeito.',
+      'Suas manias.',
+      'Suas implicâncias.',
+      'Seu carinho.',
+      '',
+      'Tudo isso faz você ser quem você é.',
+      '',
+      'E é exatamente por isso que você é inesquecível.',
+      '',
+      'Então hoje eu espero que você se sinta exatamente como merece:',
+      '',
+      'amada.',
+      'importante.',
+      'admirada.',
+      'e muito especial.',
+      '',
+      'Porque você é tudo isso.',
+      '',
+      'Feliz aniversário, Nayara.',
+      '',
+      'Que os seus 17 anos tragam ainda mais sorrisos, momentos bonitos e sonhos realizados.',
+      '',
+      'E que você nunca esqueça o quanto você é incrível.'
+    ];
+
+    const letterText = document.getElementById('letterText');
+    const surpriseSection = document.getElementById('surpriseSection');
+    const finalSparkles = document.getElementById('finalSparkles');
+    const cinemaOverlay = document.getElementById('cinemaOverlay');
+    const endingQuoteWrap = document.getElementById('endingQuoteWrap');
+    const heartSound = document.getElementById('heartSound');
+
+    function typeLetter(lines) {
+      letterText.innerHTML = '';
+      let lineIndex = 0;
+
+      function nextLine() {
+        if (lineIndex >= lines.length) {
+          document.getElementById('loveRevealBtn').classList.add('show');
+          return;
+        }
+
+        const p = document.createElement('p');
+        p.textContent = '';
+        letterText.appendChild(p);
+
+        const line = lines[lineIndex];
+        let charIndex = 0;
+
+        function typeChar() {
+          if (charIndex < line.length) {
+            p.textContent += line.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeChar, 18);
+          } else {
+            lineIndex++;
+            setTimeout(nextLine, line === '' ? 90 : 180);
+          }
+        }
+
+        if (line === '') {
+          p.innerHTML = '&nbsp;';
+          lineIndex++;
+          setTimeout(nextLine, 90);
+        } else {
+          typeChar();
+        }
+      }
+
+      nextLine();
+    }
+
+    function createFinalSparkles() {
+      finalSparkles.innerHTML = '';
+      finalSparkles.style.display = 'block';
+      for (let i = 0; i < 90; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'sparkle-dot';
+        dot.style.left = Math.random() * 100 + 'vw';
+        dot.style.top = Math.random() * 100 + 'vh';
+        dot.style.animationDuration = (1.2 + Math.random() * 2.4) + 's';
+        dot.style.animationDelay = (Math.random() * 2) + 's';
+        finalSparkles.appendChild(dot);
+      }
+    }
+
+    function runCinemaTransition(text, callback) {
+      document.getElementById('cinemaText').textContent = text;
+      cinemaOverlay.classList.add('show');
+      setTimeout(() => {
+        callback();
+        setTimeout(() => {
+          cinemaOverlay.classList.remove('show');
+        }, 260);
+      }, 900);
+    }
+
+    function playHeartSound() {
+      try {
+        heartSound.currentTime = 0;
+        heartSound.volume = 0.25;
+        heartSound.play().catch(() => {});
+      } catch (e) {}
+    }
+
+    const revealBtn = document.createElement('button');
+    revealBtn.id = 'loveRevealBtn';
+    revealBtn.className = 'love-reveal-btn';
+    revealBtn.innerHTML = '<span class="love-heart">❤</span> Aperte aqui <span class="love-heart">❤</span>';
+    revealBtn.addEventListener('click', () => {
+      runCinemaTransition('o momento mais bonito ainda está por vir…', () => {
+        surpriseSection.style.display = 'block';
+        surpriseSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        playHeartSound();
+        setTimeout(() => {
+          document.getElementById('heartBloom').classList.add('show');
+          setTimeout(() => {
+            document.getElementById('dualHeartFrame').classList.add('show');
+            createFinalSparkles();
+            setTimeout(() => {
+              endingQuoteWrap.classList.add('show');
+              setTimeout(() => {
+                endingQuoteWrap.classList.remove('show');
+              }, 4200);
+            }, 800);
+          }, 520);
+        }, 260);
+      });
+    });
+
+    const revealWrap = document.createElement('div');
+    revealWrap.className = 'love-reveal-wrap';
+    revealWrap.appendChild(revealBtn);
+    document.querySelector('.letter-card').appendChild(revealWrap);
+
+    typeLetter(letterLines);
+  </script>
+</body>
+</html>
