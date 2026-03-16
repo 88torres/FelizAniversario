@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nayara</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#05020b;
+--card:#0d0618;
+--purple:#9c7cff;
+--purpleSoft:#bba6ff;
+--white:#ffffff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Inter, sans-serif;
+background:radial-gradient(circle at top,#140b2c, #05020b 60%);
+color:white;
+overflow-x:hidden;
+}
+
+.wrap{
+width:92%;
+max-width:900px;
+margin:auto;
+}
+
+section{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:40px 0;
+}
+
+.card{
+background:linear-gradient(180deg,#0d0618,#070312);
+border:1px solid rgba(156,124,255,0.25);
+border-radius:26px;
+padding:40px;
+box-shadow:0 30px 60px rgba(0,0,0,.6);
+text-align:center;
+}
+
+.hero h1{
+font-family:'Cormorant Garamond',serif;
+font-size:clamp(2.8rem,5vw,4.5rem);
+line-height:1.1;
+color:var(--purpleSoft);
+margin-top:10px;
+}
+
+.name{
+font-family:'Cormorant Garamond',serif;
+font-size:clamp(4rem,8vw,6rem);
+color:var(--purple);
+margin:10px 0;
+text-shadow:0 0 12px rgba(156,124,255,0.35), 0 0 28px rgba(156,124,255,0.22);
+animation:nameGlow 2.8s ease-in-out infinite;
+}
+
+.subtitle{
+margin-top:20px;
+line-height:1.8;
+font-size:1rem;
+color:#eee;
+}
+
+.badge{
+margin-top:20px;
+display:inline-block;
+padding:10px 18px;
+border-radius:30px;
+border:1px solid rgba(156,124,255,0.3);
+background:rgba(156,124,255,0.15);
+}
+
+.btn{
+margin-top:22px;
+padding:14px 28px;
+border:none;
+border-radius:40px;
+font-weight:600;
+cursor:pointer;
+background:linear-gradient(135deg,#7a4cff,#a287ff);
+color:white;
+font-size:1rem;
+}
+
+/* carta */
+
+.letter h2{
+font-family:'Cormorant Garamond',serif;
+font-size:2.2rem;
+color:var(--purpleSoft);
+margin-bottom:20px;
+}
+
+.letter-card{
+opacity:0;
+transform:translateY(34px) scale(.985);
+transition:opacity .85s ease, transform .85s ease, box-shadow .85s ease;
+}
+
+.letter-card.visible{
+opacity:1;
+transform:translateY(0) scale(1);
+box-shadow:0 32px 70px rgba(0,0,0,.68), 0 0 36px rgba(156,124,255,.08);
+}
+
+.letterText{
+font-family:'Cormorant Garamond',serif;
+font-size:1.25rem;
+line-height:1.9;
+text-align:left;
+max-width:600px;
+margin:auto;
+}
+
+.letterText p{
+margin-bottom:14px;
+}
+
+/* fotos */
+
+.photos{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:25px;
+margin-top:25px;
+}
+
+.photo{
+width:200px;
+height:260px;
+overflow:hidden;
+border-radius:20px;
+border:1px solid rgba(156,124,255,0.4);
+}
+
+.photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.heart{
+font-size:60px;
+color:#ff4c6a;
+animation:pulseHeart 1.35s infinite;
+text-shadow:0 0 16px rgba(255,76,106,0.35), 0 0 30px rgba(255,76,106,0.2);
+}
+
+.message{
+margin-top:20px;
+font-size:1.05rem;
+line-height:1.7;
+}
+
+/* estrelas */
+
+.star{
+position:fixed;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+animation:twinkle 3.2s infinite ease-in-out;
+opacity:.65;
+}
+
+@keyframes twinkle{
+0%,100%{opacity:.18;transform:scale(1)}
+50%{opacity:1;transform:scale(1.7)}
+}
+
+@keyframes pulseHeart{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.12)}
+}
+
+@keyframes nameGlow{
+0%,100%{ text-shadow:0 0 12px rgba(156,124,255,0.35), 0 0 28px rgba(156,124,255,0.22); }
+50%{ text-shadow:0 0 18px rgba(156,124,255,0.65), 0 0 42px rgba(156,124,255,0.34); }
+}
+50%{opacity:1}
+}
+
+@keyframes pulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.1)}
+}
+
+/* celular */
+
+@media(max-width:700px){
+
+.card{padding:28px}
+
+.photos{
+flex-direction:row;
+}
+
+.photo{
+width:42vw;
+height:54vw;
+}
+
+.letterText{
+font-size:1.05rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- HERO -->
+
+<section class="hero">
+<div class="wrap">
+<div class="card">
+<div class="badge">16 DE MARÇO DE 2026 • 17 ANOS</div>
+<div class="name">Nayara</div>
+<h1>Hoje não é só um aniversário.<br>É o dia em que o mundo ganhou você.</h1>
+<p class="subtitle">
+Eu queria fazer algo que parecesse eterno. Não um site comum, não uma página qualquer,
+mas um lugar que parecesse feito com cuidado de verdade.
+</p>
+<button class="btn" onclick="goLetter()">Ler sua carta</button>
+</div>
+</div>
+</section>
+
+<!-- CARTA -->
+
+<section class="letter" id="carta">
+<div class="wrap">
+<div class="card letter-card">
+<h2>Uma carta para o seu dia</h2>
+<div class="letterText" id="letter"></div>
+</div>
+</div>
+</section>
+
+<!-- FINAL -->
+
+<section>
+<div class="wrap">
+<div class="card">
+<h2 style="font-family:'Cormorant Garamond';color:#bba6ff;margin-bottom:10px">
+Tem mais uma coisinha pra você...
+</h2>
+
+<div class="photos">
+<div class="photo">
+<img src="imagens/eu.jpg">
+</div>
+
+<div class="heart">❤</div>
+
+<div class="photo">
+<img src="imagens/nayara1.jpg">
+</div>
+</div>
+
+<p class="message">
+Eu amo muito você, Nayara. Amo o seu jeito, amo até os seus ciúmes,
+amo o seu jeitinho chatinha, amo cada detalhe que faz você ser você.
+E se hoje é o seu dia, então eu só queria deixar registrado
+que ter você na minha vida faz tudo ficar mais bonito,
+mais leve e mais especial.
+</p>
+
+<p style="margin-top:20px;font-family:'Cormorant Garamond';font-size:1.6rem;color:#9c7cff">
+Thiago — mais conhecido como seu Homem
+</p>
+
+</div>
+</div>
+</section>
+
+<script>
+
+function goLetter(){
+  const carta = document.querySelector('#carta');
+  const card = document.querySelector('.letter-card');
+  carta.scrollIntoView({behavior:'smooth', block:'start'});
+
+  setTimeout(() => {
+    card.classList.add('visible');
+    if (!window.__startedLetter) {
+      window.__startedLetter = true;
+      startTypewriter();
+    }
+  }, 450);
+})
+
+}
+
+const lines=[
+"Nayara,",
+"",
+"hoje é o seu dia... e eu fiquei pensando muito em como começar essa carta.",
+"",
+"Porque às vezes 'feliz aniversário' parece pequeno demais para uma pessoa como você.",
+"",
+"Você não é só alguém que está fazendo aniversário hoje.",
+"Você é alguém que mudou coisas dentro de mim.",
+"",
+"Eu amo muitas coisas em você.",
+"Amo o seu sorriso.",
+"Amo o seu jeito.",
+"Amo quando você fala.",
+"Amo quando você ri.",
+"",
+"Eu amo até quando você fica com ciúmes.",
+"",
+"Porque esse seu jeitinho, até quando você fica chatinha às vezes,
+mostra o quanto você se importa.",
+"",
+"E são exatamente essas pequenas coisas que fazem você ser tão especial.",
+"",
+"Então hoje eu só queria que você lembrasse de algo simples:",
+"",
+"Você é uma das pessoas mais incríveis que já apareceu na minha vida.",
+"",
+"Feliz aniversário, Nayara."
+]
+
+const el=document.getElementById('letter')
+let i=0
+
+function type(){
+  if(i>=lines.length) return
+
+  const p=document.createElement('p')
+  p.textContent=lines[i]
+  el.appendChild(p)
+
+  i++
+  setTimeout(type,160)
+}
+
+function startTypewriter(){
+  if(el.dataset.started === 'true') return
+  el.dataset.started = 'true'
+  setTimeout(type,280)
+}
+
+
+/* estrelas */
+
+for(let i=0;i<60;i++){
+
+const s=document.createElement('div')
+s.className='star'
+
+s.style.left=Math.random()*100+'vw'
+s.style.top=Math.random()*100+'vh'
+
+s.style.animationDuration=(1+Math.random()*2)+'s'
+
+
+document.body.appendChild(s)
+
+}
+
+</script>
+
+</body>
+</html>
